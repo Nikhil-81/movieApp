@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      body > div:first-child {
+        width: 19%;
+        box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+        margin: auto;
+        margin-top: 41px;
+        border-radius: 8px;
+      }
+      form > input {
+        margin: 10px;
+        border: 1px solid rgb(197, 188, 188);
+        padding: 5px;
+      }
+      form > #button {
+        width: 50%;
+        margin: auto;
+        background: #76c3c3;
+        border: none;
+        border-radius: 4px;
+        padding: 4px;
+        margin-bottom: 20px;
+      }
+      .tital {
+        text-align: center;
+        margin: auto;
+        font-size: 22px;
+        /* margin-top: 25px; */
+      }
+
+      body {
+        background-image: linear-gradient(
+          to right,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          indigo,
+          violet
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <form onsubmit="stor_MovieData()">
+        <input id="M_name" placeholder="Movie Name" type="text" />
+        <input id="R_data" placeholder="Release Date" type="date" />
+        <input id="M_url" placeholder="Url" type="url" />
+        <input
+          id="M_rating"
+          placeholder="Rating 0-10"
+          type="number"
+          max="10"
+          min="0"
+        />
+        <input id="M_submit" type="submit" />
+      </form>
+    </div>
+  </body>
+</html>
+<script>
+  let form = document.querySelector("form");
+  let Movie_data = JSON.parse(localStorage.getItem("movies")) || [];
+  function stor_MovieData() {
+    event.preventDefault();
+    let n = form.M_name.value;
+    let d = form.R_data.value;
+    let i = form.M_url.value;
+    let r = form.M_rating.value;
+    function objCreat(n, d, i, r) {
+      this.name = n;
+      this.data = d;
+      this.image = i;
+      this.rating = r;
+    }
+    let movie = new objCreat(n, d, i, r);
+    Movie_data.push(movie);
+    localStorage.setItem("movies", JSON.stringify(Movie_data));
+  }
+</script>
